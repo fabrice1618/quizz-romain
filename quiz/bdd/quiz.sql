@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 25 mai 2020 à 12:23
--- Version du serveur :  5.7.24
--- Version de PHP :  7.2.14
+-- Généré le :  mar. 26 mai 2020 à 13:43
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,6 +25,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `administrateur`
+--
+
+DROP TABLE IF EXISTS `administrateur`;
+CREATE TABLE IF NOT EXISTS `administrateur` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_user` varchar(250) NOT NULL,
+  `admin_password` varchar(250) NOT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `administrateur`
+--
+
+INSERT INTO `administrateur` (`admin_id`, `admin_user`, `admin_password`) VALUES
+(1, 'nico', '12345678');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `questions`
 --
 
@@ -33,33 +54,14 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `label` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `questions`
 --
 
 INSERT INTO `questions` (`id`, `label`) VALUES
-(4, 'Que signifie PHP ? '),
-(5, 'Quelle est l\'utilité de l\'opérateur || ?'),
-(6, 'Quelle fonction permet d\'effacer un fichier ? '),
-(7, 'Comment peut-on trier un tableau en ordre inverse ?'),
-(8, 'Comment définit-on une constante ? '),
-(9, 'Quelle instruction n\'est pas le nom d\'une fonction ? '),
-(10, 'Quelle fonction retire un élément de la fin d\'un tableau ? '),
-(11, 'Quelles valeurs peut prendre le type booléen ?'),
-(12, 'La boucle for ($i=0 ; $i<=3 ; $i++ ) { echo $i; }.'),
-(13, 'A quoi sert la fonction copy() ?'),
-(14, 'Quelle fonction crée un cookie ?'),
-(15, 'Comment supprimer un cookie ?'),
-(16, 'Que contient __FILE__ pendant l\'exécution d\'un script PHP ?'),
-(17, 'Que déduire si l\'on obtient l\'erreur 400 lors de l\'accès a un fichier php ?'),
-(18, 'Que fait array_pop() ?'),
-(19, 'Quelle fonction permet d\'écrire dans un fichier ?'),
-(20, 'Que vaut la constante M_PI_2 ?'),
-(21, 'Comment comparer deux tableaux ?'),
-(22, 'Que fait array_push() ?'),
-(23, 'Comment trouver une valeur dans un tableau ?');
+(28, 'Salut !');
 
 -- --------------------------------------------------------
 
@@ -104,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `login_user` varchar(250) DEFAULT NULL,
   `mdp_user` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -161,7 +163,8 @@ INSERT INTO `utilisateur` (`id`, `nom_user`, `prenom_user`, `login_user`, `mdp_u
 (58, 'cc', 'cc', 'cc', '2fed7323905d59bd4bdda96b3de974b9c781d899'),
 (59, 'tt', 'tt', 'tt', '2fed7323905d59bd4bdda96b3de974b9c781d899'),
 (60, 'karima', 'karima ', 'mazen12', '2fed7323905d59bd4bdda96b3de974b9c781d899'),
-(61, 'nico', 'nico', 'nico12', '2fed7323905d59bd4bdda96b3de974b9c781d899');
+(61, 'nico', 'nico', 'nico12', '2fed7323905d59bd4bdda96b3de974b9c781d899'),
+(62, 'nico', 'nico', 'nico', '2fed7323905d59bd4bdda96b3de974b9c781d899');
 
 --
 -- Contraintes pour les tables déchargées
@@ -171,6 +174,7 @@ INSERT INTO `utilisateur` (`id`, `nom_user`, `prenom_user`, `login_user`, `mdp_u
 -- Contraintes pour la table `reponses`
 --
 ALTER TABLE `reponses`
+  ADD CONSTRAINT `fk_question` FOREIGN KEY (`id_question`) REFERENCES `questions` (`id`),
   ADD CONSTRAINT `reponses_ibfk_1` FOREIGN KEY (`id_question`) REFERENCES `score` (`bonnereponce_score`);
 
 --
